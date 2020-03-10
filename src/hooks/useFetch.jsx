@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 
 export const useFetch = () => {
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState({ msg: "", isErrors: false });
   const req = useCallback(async (url, method = "GET", body = null, headers = {}) => {
     setLoading(true);
     try {
@@ -10,18 +10,20 @@ export const useFetch = () => {
         body = JSON.stringify(body);
       }
 
-      let res = await fetch(url, { headers, method, body });
+      let res = await fetch(`https://react-tracker-task.herokuapp.com${url}`, { headers, method, body });
       const data = await res.json();
 
       if (!res.ok) {
-        setErrors(data.msg);
+        setErrors({ msg: data.msg, isError: true });
+        setLoading(false);
+        return false;
       }
 
       setLoading(false);
       return data;
     } catch (err) {
       setLoading(false);
-      setErrors(err.message);
+      setErrors({ msg: err.message, isError: true });
     }
   }, []);
 

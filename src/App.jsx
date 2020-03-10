@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { AuthPage } from "./pages/auth-page";
 import { TaskPage } from "./pages/tasks";
+import { About } from "./pages/About";
 import { useAuth } from "./hooks/useAuth";
 import { AuthContext } from "./context/auth.context";
 import { NavBar } from "./components/NavBar";
@@ -13,12 +14,14 @@ function App() {
 
   return (
     <AuthContext.Provider value={{ token, admin, userId, isAuth, login, logout }}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL + "/"}>
         <NavBar />
         <Switch>
-          <Route exact path="/" component={AuthPage} />>
           <Route exact path="/tasks/:page">
             <TaskPage />
+          </Route>
+          <Route path="/about">
+            <About />
           </Route>
           {!isAuth && (
             <Route exact path="/auth">
