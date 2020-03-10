@@ -10,7 +10,7 @@ export const useFetch = () => {
         body = JSON.stringify(body);
       }
 
-      let res = await fetch(url, { headers, method, body });
+      let res = await fetch(`https://react-tracker-task.herokuapp.com/${url}`, { headers, method, body });
       const data = await res.json();
 
       if (!res.ok) {
