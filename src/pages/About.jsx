@@ -9,6 +9,10 @@ export const About = () => {
 
       <p> Provided By React - Node.js - Express - MySql </p>
       <p> Deployed By Heroku - GitHub Pages </p>
+
+      <p>Приложение еще не закончено, но основной функционал присутствует.</p>
+      <p>Любой пользователь может оставить заметку</p>
+      <p>Редактировать заметки может толбко админ(login:admin, password:123)</p>
     </div>
   );
 };
