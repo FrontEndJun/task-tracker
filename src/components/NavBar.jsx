@@ -6,7 +6,8 @@ import { AuthContext } from "../context/auth.context";
 export const NavBar = () => {
   const auth = useContext(AuthContext);
 
-  const logoutHandler = () => {
+  const logoutHandler = e => {
+    e.preventDefault();
     auth.logout();
   };
 
@@ -24,7 +25,15 @@ export const NavBar = () => {
             <li>
               <NavLink to="/about">About</NavLink>
             </li>
-            <li>{auth.isAuth ? <a onClick={logoutHandler}>Log out</a> : <NavLink to="/auth">Log In</NavLink>}</li>
+            <li>
+              {auth.isAuth ? (
+                <a href="/logout" onClick={logoutHandler}>
+                  Log out
+                </a>
+              ) : (
+                <NavLink to="/auth">Log In</NavLink>
+              )}
+            </li>
           </ul>
         </div>
       </div>

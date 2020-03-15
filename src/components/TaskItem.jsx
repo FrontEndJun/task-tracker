@@ -18,7 +18,7 @@ export const TaskItem = ({ id, email, text, completed, username, edited }) => {
 
   const clickHandler = async e => {
     setHasChages(false);
-    const res = await req(`/tasks/${id}`, "PUT", { ...values }, { "Content-Type": "application/json", Authorization: `Bearer ${token}` });
+    await req(`/tasks/${id}`, "PUT", { ...values }, { "Content-Type": "application/json", Authorization: `Bearer ${token}` });
   };
   return (
     <tr className="row valign-wrapper">

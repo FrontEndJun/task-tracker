@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Loader } from "./Loader";
 import { TaskItem } from "./TaskItem";
-export const TasksList = ({ tasks, loading }) => {
-  return (
+import { TasksContext } from "../context/tasks.context";
+export const TasksList = () => {
+  const { state } = useContext(TasksContext);
+
+  return state.loading ? (
+    <Loader />
+  ) : (
     <table>
       <thead>
         <tr className="row">
@@ -13,16 +18,12 @@ export const TasksList = ({ tasks, loading }) => {
           <th className="col s1"></th>
         </tr>
       </thead>
-      {loading ? (
-        <Loader />
-      ) : (
-        tasks && (
-          <tbody>
-            {tasks.map(task => (
-              <TaskItem key={task.id} {...task} />
-            ))}
-          </tbody>
-        )
+      {state.task.list && (
+        <tbody>
+          {state.task.list.map(task => (
+            <TaskItem key={task.id} {...task} />
+          ))}
+        </tbody>
       )}
     </table>
   );

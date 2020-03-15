@@ -10,7 +10,7 @@ export const AuthPage = () => {
   const submitHandler = async e => {
     e.preventDefault();
     const res = await req("/auth/login", "POST", { ...form }, { "Content-Type": "application/json" });
-    if (res) auth.login(res.tkn, res.id, res.isAdmin);
+    auth.login(res.tkn, res.id, res.isAdmin);
   };
 
   const changeHandler = e => {
@@ -40,13 +40,13 @@ export const AuthPage = () => {
               </label>
             </div>
 
-            <button type="submit" className="waves-effect waves-light btn col s4 offset-s4" disabled={loading && !errors.isErrors}>
+            <button type="submit" className="waves-effect waves-light btn col s4 offset-s4" disabled={loading}>
               Sign In
             </button>
           </div>
         </form>
       </div>
-      {errors && !errors.isErrors && <p className="col s12 red-text">{errors.msg}</p>}
+      <p className="col s12 red-text">{errors}</p>
     </div>
   );
 };

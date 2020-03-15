@@ -1,24 +1,51 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import classNames from "classnames";
+import { TasksContext } from "../context/tasks.context";
 
-export const Pagination = ({ currentPage, pages }) => {
-  const isFirst = currentPage == 1;
-  const isLast = currentPage == pages;
+export const Pagination = () => {
+  const { state, dispatch } = useContext(TasksContext);
+  const pages = Math.ceil(state.task.all / state.perPage) || 1;
+  const isFirst = state.currentPage === 1;
+  const isLast = state.currentPage === pages;
 
   return (
     <ul className="pagination">
-      <li key="1" className={`waves-effect ${isFirst ? "disabled" : ""}`}>
-        <Link to={`/tasks/${currentPage - 1}`} className={isFirst ? "disabled" : ""}>
+      <li className={classNames("waves-effect", { disabled: isFirst })}>
+        <a
+          href="/"
+          onClick={e => {
+            e.preventDefault();
+            dispatch({ type: "PREV_PAGE" });
+          }}
+          className={classNames({ disabled: isFirst })}
+        >
           <i className="material-icons">chevron_left</i>
-        </Link>
+        </a>
       </li>
-      <li key="2" className="active">
-        <a href="#!">{currentPage}</a>
-      </li>
-      <li key="3" className={`waves-effect ${isLast ? "disabled" : ""}`}>
-        <Link to={`/tasks/${currentPage + 1}`} className={isLast ? "disabled" : ""}>
+
+      {new Array(pages).fill(0).map((_, i) => {
+        const index = i + 1;
+
+        return (
+          <li key={index} className={classNames({ active: index === state.currentPage })}>
+            <a href="#!" onClick={() => dispatch({ type: "SET_PAGE", payload: index })}>
+              {index}
+            </a>
+          </li>
+        );
+      })}
+
+      <li className={classNames("waves-effect", { disabled: isLast })}>
+        <a
+          href="/"
+          onClick={e => {
+            e.preventDefault();
+            dispatch({ type: "NEXT_PAGE" });
+          }}
+          className={classNames({ disabled: isLast })}
+        >
           <i className="material-icons">chevron_right</i>
-        </Link>
+        </a>
       </li>
     </ul>
   );
