@@ -14,7 +14,7 @@ function App() {
   const isAuth = !!token;
   return (
     <AuthContext.Provider value={{ token, admin, userId, isAuth, login, logout }}>
-      <BrowserRouter basename={`${process.env.PUBLIC_URL}`}>
+      <BrowserRouter basename={`${process.env.PUBLIC_URL}/`}>
         <NavBar />
         <Switch>
           {/* <Route exact path="/" component={AuthPage} /> */}
@@ -29,7 +29,7 @@ function App() {
               <AuthPage />
             </Route>
           )}
-          <Redirect to="/tasks/" />
+          <Redirect to="/tasks" />
         </Switch>
       </BrowserRouter>
     </AuthContext.Provider>
