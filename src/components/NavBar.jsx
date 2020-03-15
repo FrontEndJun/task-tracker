@@ -20,7 +20,7 @@ export const NavBar = () => {
           </Link>
           <ul id="nav-mobile" className="right hide-on-med-and-down">
             <li>
-              <NavLink to="/tasks/1">Tasks</NavLink>
+              <NavLink to={"/tasks/?page=1&dir=ASC&perPage=3"}>Tasks</NavLink>
             </li>
             <li>
               <NavLink to="/about">About</NavLink>

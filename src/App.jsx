@@ -29,7 +29,7 @@ function App() {
               <AuthPage />
             </Route>
           )}
-          <Redirect to="/tasks" />
+          <Redirect to={`/tasks/ `} />
         </Switch>
       </BrowserRouter>
     </AuthContext.Provider>
